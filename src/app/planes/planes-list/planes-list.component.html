@@ -1,0 +1,77 @@
+<div *ngIf="!loading">
+
+  <div class="row btn-toolbar">
+    <div class="mr-auto">
+      <button type="button" class="btn btn-primary"
+              [disabled]="planes._links.prev === undefined" (click)="onPrev()">&lt;
+      </button>
+      <button type="button" class="btn btn-primary"
+              [disabled]="planes._links.next === undefined" (click)="onNext()">&gt;
+      </button>
+      <button type="button" class="btn btn-primary"
+              [hidden]="planes._links.last === undefined"
+              [disabled]="planes._links.last !== undefined &&
+              planes._links.self.href === planes._links.last.href" (click)="onLast()">
+        {{planes.page.totalPages}}
+      </button>
+    </div>
+    <div class="ml-auto">
+      <button type="button" class="btn btn-success" (click)="onDay()">Day
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h3>{{planes._embedded.planeDtoes[0].date | date :'EE, dd.MM.yy'}}</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+          <thead class="thead-dark">
+          <tr>
+            <th>Time</th>
+            <th>Icao 24</th>
+            <th *ngIf="departureInfo">Departure airport</th>
+            <th *ngIf="airlinesInfo">Airline</th>
+            <th>Altitude (m)</th>
+            <th>Speed (km/h)</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let plane of planes._embedded.planeDtoes">
+            <td>{{plane.date_time | date: 'HH:mm:ss'}}</td>
+            <td class="row-plane" (click)="onIcao(plane.icao_24)">
+              <a>{{plane.icao_24}}</a>
+            </td>
+            <ng-container *ngIf="departureInfo">
+              <td *ngIf="plane.departure_airport_name; else no_name">{{plane.departure_airport_name}}</td>
+              <ng-template #no_name>
+                <td>{{plane.departure_airport ? plane.departure_airport : "Unknown"}}</td>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngIf="airlinesInfo">
+              <td *ngIf="plane.airline_name !== undefined; else no_airline_name">{{plane.airline_name}}</td>
+              <ng-template #no_airline_name>
+                <td>{{plane.airline}}</td>
+              </ng-template>
+            </ng-container>
+            <td>{{plane.altitude}}</td>
+            <td>{{plane.speed}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <app-footer></app-footer>
+    </div>
+  </div>
+
+</div>

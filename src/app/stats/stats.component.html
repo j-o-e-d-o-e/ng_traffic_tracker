@@ -1,0 +1,183 @@
+<div *ngIf="active">
+
+  <br>
+  <div class="row">
+    <div class="col">
+      <h3>
+        Days
+      </h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li>
+          <strong>Total flights</strong>: {{stats.total | number}} since {{startDate | date:'dd.MM.yyyy'}}
+        </li>
+        <li>
+          <strong>Most flights</strong>: {{stats.day_with_most_flights.stats}} on <a
+          (click)="onDay(stats.day_with_most_flights.day.date)">{{stats.day_with_most_flights.day.date | date :'EEEE, dd.MM.yyyy'}}</a>
+        </li>
+        <li>
+          <strong>Most flights within one hour</strong>: {{stats.day_with_most_flights_within_one_hour.stats}} on <a
+          (click)="onDay(stats.day_with_most_flights_within_one_hour.day.date)">{{stats.day_with_most_flights_within_one_hour.day.date | date :'EEEE, dd.MM.yyyy'}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <ng-container *ngIf="stats.airports != undefined">
+    <hr>
+    <div class="row">
+      <div class="col">
+        <h3>
+          Departure airports<br><small>(since {{startDateDepartures| date :'dd.MM.yyyy'}})</small>
+        </h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div style="display: block;">
+          <canvas baseChart
+                  [data]="pieChartData"
+                  [labels]="pieChartLabels"
+                  [chartType]="pieChartType"
+                  [options]="pieChartOptions"
+                  [legend]="pieChartLegend">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <h4>Top airports <small>(flights)</small></h4>
+        <ol>
+          <li *ngFor="let airport of stats.airports">
+            <strong>{{airport.name}}</strong> ({{airport.flights}})
+          </li>
+        </ol>
+      </div>
+    </div>
+  </ng-container>
+
+  <hr>
+  <div class="row">
+    <div class="col">
+      <h3>
+        Planes <small>(last 30 days)</small>
+      </h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li>
+          <strong>Most flights</strong>: {{stats.plane_with_most_flights.stats}} by plane "<a
+          (click)="onIcao(stats.plane_with_most_flights.icao)">{{stats.plane_with_most_flights.icao}}</a>"
+        </li>
+        <li>
+          <strong>Most flights within one day</strong>: {{stats.plane_with_most_flights_within_one_day.stats}} by plane
+          "<a
+          (click)="onIcao(stats.plane_with_most_flights_within_one_day.icao)">{{stats.plane_with_most_flights_within_one_day.icao}}</a>"
+          on <a
+          (click)="onDay(stats.plane_with_most_flights_within_one_day.day.date)">{{stats.plane_with_most_flights_within_one_day.day.date | date :'EEEE, dd.MM.'}}</a>
+        </li>
+        <li>
+          <strong>Max altitude</strong>: {{stats.max_altitude.altitude}} m by plane "<a
+          (click)="onIcao(stats.max_altitude.icao_24)">{{stats.max_altitude.icao_24}}</a>" on <a
+          (click)="onDay(stats.max_altitude.date)">{{stats.max_altitude.date | date :'EEEE, dd.MM.'}}</a>
+        </li>
+        <li>
+          <strong>Min altitude</strong>: {{stats.min_altitude.altitude}} m by plane "<a
+          (click)="onIcao(stats.min_altitude.icao_24)">{{stats.min_altitude.icao_24}}</a>" on <a
+          (click)="onDay(stats.min_altitude.date)">{{stats.min_altitude.date | date :'EEEE, dd.MM.'}}</a>
+        </li>
+        <li>
+          <strong>Max speed</strong>: {{stats.max_speed.speed}} km/h by plane "<a
+          (click)="onIcao(stats.max_speed.icao_24)">{{stats.max_speed.icao_24}}</a>"
+          on <a (click)="onDay(stats.max_speed.date)">{{stats.max_speed.date | date :'EEEE, dd.MM.'}}</a>
+        </li>
+        <li>
+          <strong>Min speed</strong>: {{stats.min_speed.speed}} km/h by plane "<a
+          (click)="onIcao(stats.min_speed.icao_24)">{{stats.min_speed.icao_24}}</a>"
+          on <a (click)="onDay(stats.min_speed.date)">{{stats.min_speed.date | date :'EEEE, dd.MM.'}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="stats.airlines !== undefined && stats.airlines.length > 0">
+    <div class="col">
+      <h4>Top airlines <small>(flights)</small></h4>
+      <ol>
+        <li *ngFor="let airline of stats.airlines">
+          <strong>{{airline.name}}</strong> ({{airline.flights}})
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <hr>
+  <div class="row">
+    <div class="col">
+      <h3>
+        Forecasts <small>(last 30 days)</small>
+      </h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li>
+          <strong>Precision</strong>: {{stats.score.precision}}%
+        </li>
+        <li>
+          <strong>Recall</strong>: {{stats.score.recall}}%
+        </li>
+        <li>
+          <strong>Mean absolute error</strong>: {{stats.score.mean_abs_error}}%
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-sm table-striped table-bordered table-hover">
+          <thead class="thead-dark">
+          <tr>
+            <th></th>
+            <th>No planes predicted</th>
+            <th>Planes predicted</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">Actual no planes</th>
+            <td>{{stats.score.confusion_matrix[0][0] ? stats.score.confusion_matrix[0][0] : 0}}</td>
+            <td>{{stats.score.confusion_matrix[0][1] ? stats.score.confusion_matrix[0][1] : 0}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Actual planes</th>
+            <td>{{stats.score.confusion_matrix.length > 1 && stats.score.confusion_matrix[1][0] ? stats.score.confusion_matrix[1][0] : 0}}</td>
+            <td>{{stats.score.confusion_matrix.length > 1 && stats.score.confusion_matrix[1][1] ? stats.score.confusion_matrix[1][1] : 0}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <app-footer></app-footer>
+    </div>
+  </div>
+
+</div>

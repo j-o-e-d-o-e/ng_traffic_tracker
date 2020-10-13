@@ -1,0 +1,111 @@
+<div *ngIf="!loading">
+
+  <div class="row btn-toolbar">
+    <div class="mr-auto">
+      <button type="button" class="btn btn-primary"
+              [disabled]="!month.prev" (click)="onPrev()">&lt;
+      </button>
+      <button type="button" class="btn btn-primary"
+              [disabled]="month.next" (click)="onRefresh()">
+        <i class="fa fa-refresh"></i>
+      </button>
+      <button type="button" class="btn btn-primary"
+              [disabled]="!month.next" (click)="onNext()">&gt;
+      </button>
+    </div>
+    <div class="ml-auto">
+      <button type="button" class="btn btn-success"
+              [disabled]="month._links.weeks === undefined" (click)="onWeeks()">Weeks
+      </button>
+      <button type="button" class="btn btn-success"
+              [disabled]="month._links.year === undefined" (click)="onYear()">Year
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h3>{{month.start_date | date :'MMMM yyyy'}}</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div style="display: block;">
+        <canvas baseChart width="400" height="400"
+                [chartType]="chartType"
+                [labels]="chartLabels"
+                [datasets]="chartData"
+                [options]="chartOptions">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead class="thead-dark">
+          <tr>
+            <th>Total</th>
+            <th>23:00-0:00h</th>
+            <th>0:00-5:45h</th>
+            <th>days &lt; 30 <i class="fa fa-plane"></i></th>
+            <th>Avg altitude</th>
+            <th>Avg speed</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{month.total}}</td>
+            <td>{{month.planes_23}}</td>
+            <td>{{month.planes_0}}</td>
+            <td>{{month.days_with_less_than_thirty_planes}}%</td>
+            <td>{{month.avg_altitude}} m</td>
+            <td>{{month.avg_speed}} km/h</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="month.airports.length > 0">
+    <hr>
+    <div class="row">
+      <div class="col">
+        <h4>Departure airports
+          <small *ngIf="checkSubHeadline()"><br>(since {{startDateDepartures| date :'dd.MM.yyyy'}})</small>
+        </h4>
+        <div style="display: block;">
+          <canvas baseChart
+                  [data]="pieChartData"
+                  [labels]="pieChartLabels"
+                  [chartType]="pieChartType"
+                  [options]="pieChartOptions"
+                  [legend]="pieChartLegend">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <h5>Top airports <small>(flights)</small></h5>
+        <ol>
+          <li *ngFor="let airport of month.airports">
+            <strong>{{airport.name}}</strong> ({{airport.flights}})
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <app-footer></app-footer>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,29 @@
+<div class="container" *ngIf="!loading">
+
+  <br>
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <p>
+        Tracks planes landing <strong>DUS</strong> airport coming from the east -
+        since <strong>0{{minDate.day}}.0{{minDate.month}}.{{minDate.year}}</strong>.
+        <i>Departure airports since {{startDepartures| date :'dd.MM.yyyy'}}.</i>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <ngb-datepicker [(ngModel)]="model"
+                      [minDate]="minDate"
+                      [maxDate]="maxDate"></ngb-datepicker>
+    </div>
+  </div>
+
+  <br>
+  <div class="row btn-toolbar">
+    <div class="col d-flex justify-content-center">
+      <button type="button" class="btn btn-primary" (click)="onClick()">Choose Day</button>
+    </div>
+  </div>
+
+</div>

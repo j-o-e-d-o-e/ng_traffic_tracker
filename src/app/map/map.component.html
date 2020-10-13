@@ -1,0 +1,34 @@
+<br>
+<div class="row">
+  <div class="col">
+    <agm-map [latitude]='latitude'
+             [longitude]='longitude'
+             [zoom]=zoom
+             [usePanning]="true"
+             [disableDefaultUI]="true">
+      <!--suppress AngularInvalidExpressionResultType -->
+      <agm-marker *ngFor="let plane of currentPlanes;"
+                  [agmFitBounds]="true"
+                  [latitude]='plane.latitude'
+                  [longitude]='plane.longitude'
+                  [iconUrl]="{ url: './assets/plane.svg', scaledSize: { width: 30, height: 30 }}">
+        <agm-info-window [disableAutoPan]="true"
+                         [isOpen]="true">
+          <small>
+            <strong>{{plane.icao}}</strong><br>
+            {{plane.altitude}} m<br>
+            {{plane.speed}} km/h <br>
+            <i>Updated {{plane.date | date: 'h:mm:ss a'}}</i>
+          </small>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <app-footer></app-footer>
+  </div>
+</div>
+
