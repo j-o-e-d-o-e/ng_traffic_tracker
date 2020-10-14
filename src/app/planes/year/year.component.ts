@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
-import {Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, SingleDataSet} from 'ng2-charts';
+import {Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip} from 'ng2-charts';
 import {PlaneService} from '../../service/plane.service';
 import {Year} from '../../model/year.model';
 import {environment} from '../../../environments/environment';
@@ -29,13 +29,6 @@ export class YearComponent implements OnInit {
       }]
     }
   };
-  pieChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  pieChartLabels: Label[];
-  pieChartData: SingleDataSet;
-  pieChartType: ChartType = 'pie';
-  pieChartLegend = true;
   year: Year;
   startDateDepartures: Date = new Date(environment.departuresStartDate);
   loading: boolean;
@@ -60,16 +53,6 @@ export class YearComponent implements OnInit {
     this.chartData = [];
     this.chartData.push({data: this.year.months, label: 'Absolute'});
     this.chartData.push({data: this.year.avg_planes, label: 'Average', type: 'line', fill: false});
-    this.pieChartData = [];
-    this.pieChartData.push(this.year.departures.continental_abs);
-    this.pieChartData.push(this.year.departures.international_abs);
-    this.pieChartData.push(this.year.departures.national_abs);
-    this.pieChartData.push(this.year.departures.unknown_abs);
-    this.pieChartLabels = ['Intercontinental', 'Europe', 'National', 'Unknown'];
-    this.pieChartLabels[0] += ' (' + this.year.departures.continental + '%)';
-    this.pieChartLabels[1] += ' (' + this.year.departures.international + '%)';
-    this.pieChartLabels[2] += ' (' + this.year.departures.national + '%)';
-    this.pieChartLabels[3] += ' (' + this.year.departures.unknown + '%)';
   }
 
   onPrev() {

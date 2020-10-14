@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, SingleDataSet} from 'ng2-charts';
+import {Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip} from 'ng2-charts';
 import {PlaneService} from '../../service/plane.service';
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Day} from '../../model/day.model';
@@ -44,13 +44,6 @@ export class DayComponent implements OnInit {
         }]
     }
   };
-  pieChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  pieChartLabels: Label[];
-  pieChartData: SingleDataSet;
-  pieChartType: ChartType = 'pie';
-  pieChartLegend = true;
   day: Day;
   loading: boolean;
 
@@ -95,16 +88,6 @@ export class DayComponent implements OnInit {
       fill: false
     });
     this.chartData.push({data: this.day.hours_wind, label: 'Wind direction', yAxisID: 'y-axis-right', fill: false});
-    this.pieChartData = [];
-    this.pieChartData.push(this.day.departures.continental_abs);
-    this.pieChartData.push(this.day.departures.international_abs);
-    this.pieChartData.push(this.day.departures.national_abs);
-    this.pieChartData.push(this.day.departures.unknown_abs);
-    this.pieChartLabels = ['Intercontinental', 'Europe', 'National', 'Unknown'];
-    this.pieChartLabels[0] += ' (' + this.day.departures.continental + '%)';
-    this.pieChartLabels[1] += ' (' + this.day.departures.international + '%)';
-    this.pieChartLabels[2] += ' (' + this.day.departures.national + '%)';
-    this.pieChartLabels[3] += ' (' + this.day.departures.unknown + '%)';
   }
 
   onPrev() {

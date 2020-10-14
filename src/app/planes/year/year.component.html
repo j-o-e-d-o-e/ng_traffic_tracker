@@ -69,34 +69,8 @@
   </div>
 
   <div *ngIf="year.airports.length > 0">
-    <hr>
-    <div class="row" *ngIf="chartData.length > 0">
-      <div class="col">
-        <h4>Departure airports
-          <small *ngIf="checkSubHeadline()"><br>(since {{startDateDepartures| date :'dd.MM.yyyy'}})</small>
-        </h4>
-        <div style="display: block;">
-          <canvas baseChart
-                  [data]="pieChartData"
-                  [labels]="pieChartLabels"
-                  [chartType]="pieChartType"
-                  [options]="pieChartOptions"
-                  [legend]="pieChartLegend">
-          </canvas>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row" *ngIf="year.airports.length > 0">
-      <div class="col">
-        <h5>Top airports <small>(flights)</small></h5>
-        <ol>
-          <li *ngFor="let airport of year.airports">
-            <strong>{{airport.name}}</strong> ({{airport.flights}})
-          </li>
-        </ol>
-      </div>
-    </div>
+    <app-airports [departures]="year.departures" [airports]="year.airports"
+                  [subHeadline]="checkSubHeadline()"></app-airports>
   </div>
 
   <div class="row">

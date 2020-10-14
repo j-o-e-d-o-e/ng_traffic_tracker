@@ -27,41 +27,9 @@
     </div>
   </div>
 
-  <ng-container *ngIf="stats.airports != undefined">
-    <hr>
-    <div class="row">
-      <div class="col">
-        <h3>
-          Departure airports<br><small>(since {{startDateDepartures| date :'dd.MM.yyyy'}})</small>
-        </h3>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <div style="display: block;">
-          <canvas baseChart
-                  [data]="pieChartData"
-                  [labels]="pieChartLabels"
-                  [chartType]="pieChartType"
-                  [options]="pieChartOptions"
-                  [legend]="pieChartLegend">
-          </canvas>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col">
-        <h4>Top airports <small>(flights)</small></h4>
-        <ol>
-          <li *ngFor="let airport of stats.airports">
-            <strong>{{airport.name}}</strong> ({{airport.flights}})
-          </li>
-        </ol>
-      </div>
-    </div>
-  </ng-container>
+  <div *ngIf="stats.airports != undefined">
+    <app-airports [departures]="stats.departures" [airports]="stats.airports" [subHeadline]="true"></app-airports>
+  </div>
 
   <hr>
   <div class="row">

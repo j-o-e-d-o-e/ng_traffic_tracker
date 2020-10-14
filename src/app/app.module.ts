@@ -25,6 +25,7 @@ import { AgmCoreModule } from '@agm/core';
 import {environment} from '../environments/environment';
 import { ErrorComponent } from './error/error.component';
 import { StatsComponent } from './stats/stats.component';
+import { AirportsComponent } from './airports/airports.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { StatsComponent } from './stats/stats.component';
     ForecastsComponent,
     MapComponent,
     ErrorComponent,
-    StatsComponent
+    StatsComponent,
+    AirportsComponent
   ],
   imports: [
     BrowserModule,

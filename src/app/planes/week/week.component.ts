@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
-import {Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, SingleDataSet} from 'ng2-charts';
+import {Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip} from 'ng2-charts';
 import {PlaneService} from '../../service/plane.service';
 import {Week} from '../../model/week.model';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -29,13 +29,6 @@ export class WeekComponent implements OnInit {
       }]
     }
   };
-  pieChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  pieChartLabels: Label[];
-  pieChartData: SingleDataSet;
-  pieChartType: ChartType = 'pie';
-  pieChartLegend = true;
   week: Week;
   startDateDepartures: Date = new Date(environment.departuresStartDate);
   loading: boolean;
@@ -61,16 +54,6 @@ export class WeekComponent implements OnInit {
     this.chartData = [];
     this.chartData.push({data: this.week.weekdays, label: 'Absolute'});
     this.chartData.push({data: this.week.avg_planes, label: 'Average', type: 'line', fill: false});
-    this.pieChartData = [];
-    this.pieChartData.push(this.week.departures.continental_abs);
-    this.pieChartData.push(this.week.departures.international_abs);
-    this.pieChartData.push(this.week.departures.national_abs);
-    this.pieChartData.push(this.week.departures.unknown_abs);
-    this.pieChartLabels = ['Intercontinental', 'Europe', 'National', 'Unknown'];
-    this.pieChartLabels[0] += ' (' + this.week.departures.continental + '%)';
-    this.pieChartLabels[1] += ' (' + this.week.departures.international + '%)';
-    this.pieChartLabels[2] += ' (' + this.week.departures.national + '%)';
-    this.pieChartLabels[3] += ' (' + this.week.departures.unknown + '%)';
   }
 
   onPrev() {

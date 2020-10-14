@@ -69,32 +69,7 @@
   </div>
 
   <div *ngIf="day.airports.length > 0">
-    <hr>
-    <div class="row">
-      <div class="col">
-        <h4>Departure airports</h4>
-        <div style="display: block;">
-          <canvas baseChart
-                  [data]="pieChartData"
-                  [labels]="pieChartLabels"
-                  [chartType]="pieChartType"
-                  [options]="pieChartOptions"
-                  [legend]="pieChartLegend">
-          </canvas>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col">
-        <h5>Top airports <small>(flights)</small></h5>
-        <ol>
-          <li *ngFor="let departure of day.airports">
-            <strong>{{departure.name}}</strong> ({{departure.flights}})
-          </li>
-        </ol>
-      </div>
-    </div>
+    <app-airports [departures]="day.departures" [airports]="day.airports" [subHeadline]="false"></app-airports>
   </div>
 
   <div class="row">
