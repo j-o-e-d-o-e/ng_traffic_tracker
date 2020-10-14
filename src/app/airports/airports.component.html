@@ -1,0 +1,29 @@
+<hr>
+<div class="row">
+  <div class="col">
+    <h3>Departure airports
+      <small *ngIf="subHeadline"><br>(since {{startDateDepartures| date :'dd.MM.yyyy'}})</small>
+    </h3>
+    <div style="display: block;">
+      <canvas baseChart
+              [data]="setData()"
+              [labels]="setLabels()"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [legend]="pieChartLegend">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="row">
+  <div class="col">
+    <h4>Top airports <small>(flights)</small></h4>
+    <ol>
+      <li *ngFor="let airport of airports">
+        <strong>{{airport.name}}</strong> ({{airport.flights}})
+      </li>
+    </ol>
+  </div>
+</div>
