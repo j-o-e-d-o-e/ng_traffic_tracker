@@ -29,7 +29,6 @@ export class StatsComponent implements OnInit {
 
   private setData(stats: Stats) {
     this.stats = stats;
-    // console.log(this.stats);
   }
 
   onDay(date: string) {

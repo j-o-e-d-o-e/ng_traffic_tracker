@@ -56,7 +56,7 @@ export class DayComponent implements OnInit {
     this.loading = true;
     const date = this.route.snapshot.params.date;
     if (!date) {
-      this.service.fetchDay().subscribe(
+      this.service.fetchCurrentDay().subscribe(
         (day: Day) => {
           this.setData(day);
           this.router.navigate(['/day', this.day.date]).catch();

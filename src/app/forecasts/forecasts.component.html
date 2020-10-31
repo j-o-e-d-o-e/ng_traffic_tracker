@@ -17,14 +17,14 @@
           <table class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">
             <tr>
-              <th>Hour</th>
+              <th></th>
               <th>Wind degree</th>
               <th>Probability</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let hour of forecast.hours">
-              <td>{{hour.time| slice:0:5}}</td>
+              <td><strong>{{hour.time | slice:0:5}}h</strong></td>
               <td>{{hour.wind_degree}}</td>
               <td>{{hour.probability}}</td>
             </tr>

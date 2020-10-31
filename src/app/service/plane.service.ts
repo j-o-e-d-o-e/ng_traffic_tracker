@@ -13,7 +13,7 @@ export class PlaneService {
     return this.http.get(url);
   }
 
-  fetchDay() {
+  fetchCurrentDay() {
     return this.http.get(this.url + '/day');
   }
 }

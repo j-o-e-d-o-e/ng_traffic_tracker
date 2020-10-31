@@ -43,10 +43,10 @@ export class AirportsComponent implements OnInit {
 
   setLabels() {
     return [
-      'Intercontinental (' + this.departures.continental + '%)',
-      'Europe (' + this.departures.international + '%)',
-      'National (' + this.departures.national + '%)',
-      'Unknown (' + this.departures.unknown + '%)'
+      'Intercontinental (' + this.departures.continental_abs + '/' + this.departures.continental + '%)',
+      'Europe (' + this.departures.international_abs + '/' + this.departures.international + '%)',
+      'National (' + this.departures.national_abs + '/' + this.departures.national + '%)',
+      'Unknown (' + this.departures.unknown_abs + '/' + this.departures.unknown + '%)'
     ];
   }
 }

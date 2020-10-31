@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.minDate = new NgbDate(environment.startYear, environment.startMonth, environment.startDay);
     this.startDepartures = new Date(environment.departuresStartDate);
-    this.service.fetchDay().subscribe((day: Day) => {
+    this.service.fetchCurrentDay().subscribe((day: Day) => {
       const date = new Date(day.now);
       this.maxDate = new NgbDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
       this.model = this.maxDate;

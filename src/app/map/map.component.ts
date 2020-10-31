@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PlaneService} from '../service/plane.service';
 import {interval, Subscription} from 'rxjs';
 import {environment} from '../../environments/environment';
-import {CurrentPlane, MapResponse} from './current-plane.model';
+import {CurrentPlane, MapResponse} from '../model/current-plane.model';
 
 @Component({
   selector: 'app-map',

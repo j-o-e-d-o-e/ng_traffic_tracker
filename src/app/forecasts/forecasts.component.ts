@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PlaneService} from '../service/plane.service';
 import {environment} from '../../environments/environment';
-import {ForecastDay} from './forecast.model';
+import {ForecastDay} from '../model/forecast.model';
 
 @Component({
   selector: 'app-forecast',
@@ -25,6 +25,6 @@ export class ForecastsComponent implements OnInit {
 
   setData(forecasts: ForecastDay[]) {
     this.forecasts = forecasts;
-    console.log(this.forecasts);
+    // console.log(this.forecasts);
   }
 }

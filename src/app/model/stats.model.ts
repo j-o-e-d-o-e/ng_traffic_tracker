@@ -7,6 +7,8 @@ export interface Stats {
   total: number;
   day_with_most_flights: {'day': Day, stats: number};
   day_with_most_flights_within_one_hour: {'day': Day, stats: number};
+  days_with_less_than_thirty_flights: number;
+  hours_with_no_flights: number;
   departures: Departures;
   airports: KeyValue[];
   plane_with_most_flights: {'icao': string, 'stats': number};
